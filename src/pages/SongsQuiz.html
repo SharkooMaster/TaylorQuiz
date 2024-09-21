@@ -1,0 +1,158 @@
+<template rapid-name="songsQuiz">
+    <script defer>
+        class songsQuiz extends Component
+        {
+            onComponentLoad()
+            {
+                this.activeInp = null;
+                this.activeInpEvent = null;
+                this.correctCount = 0;
+
+                this.test = {'Taylor Swift': ['Tim McGraw', 'Picture to Burn', 'Teardrops On My Guitar', 'A Place In This World', 'Cold as You', 'The Outside', 'Tied Together with a Smile', 'Stay Beautiful', "Should\\'ve Said No", "Mary\\'s Song (Oh My My My)", 'Our Song', "I\\'m Only Me When I\\'m With You", 'Invisible', 'A Perfectly Good Heart'], 'Beautiful Eyes': ['Beautiful Eyes', 'I Heart ?'], "Fearless (Taylor's Version)": ['Fearless', 'Fifteen', 'Love Story', 'Hey Stephen', 'White Horse', 'You Belong With Me', 'Breathe', 'Tell Me Why', "You\\'re Not Sorry", 'The Way I Loved You', 'Forever & Always', 'The Best Day', 'Change', 'Jump Then Fall', 'Untouchable', 'Come In With The Rain', 'Superstar', 'The Other Side of the Door', 'Today Was a Fairytale', 'You All Over Me [From the Vault]', 'Mr. Perfectly Fine [From the Vault]', 'We Were Happy [From the Vault]', "That\\'s When [From the Vault]", "Don\\'t You [From the Vault]", 'Bye Bye Baby [From the Vault]', 'If This Was a Movie'], "Speak Now (Taylor's Version)": ['Mine', 'Sparks Fly', 'Back To December', 'Speak Now', 'Dear John', 'Mean', 'The Story Of Us', 'Never Grow Up', 'Enchanted', 'Better Than Revenge', 'Innocent', 'Haunted', 'Last Kiss', 'Long Live', 'Ours', 'Superman', 'Electric Touch [From The Vault]', 'When Emma Falls in Love [From The Vault]', 'I Can See You [From The Vault]', 'Castles Crumbling [From The Vault]', 'Foolish One [From The Vault]', 'Timeless [From The Vault]'], "Red (Taylor's Version)": ['State of Grace', 'Red', 'Treacherous', 'I Knew You Were Trouble', 'All Too Well', '22', 'I Almost Do', 'We Are Never Ever Getting Back Together', 'Stay Stay Stay', 'The Last Time', 'Holy Ground', 'Sad Beautiful Tragic', 'The Lucky One', 'Everything Has Changed', 'Starlight', 'Begin Again', 'The Moment I Knew', 'Come Back...Be Here', 'Girl At Home', 'Ronan', 'Better Man [From The Vault]', 'Nothing New [From The Vault]', 'Babe [From The Vault]', 'Message In A Bottle [From The Vault]', 'I Bet You Think About Me [From the Vault]', 'Forever Winter [From The Vault]', 'Run [From The Vault]', 'The Very First Night [From The Vault]', 'All Too Well (10 Minute Version) [From The Vault]'], "1989 (Taylor's Version)": ['Welcome To New York', 'Blank Space', 'Style', 'Out Of The Woods', 'All You Had To Do Was Stay', 'Shake It Off', 'I Wish You Would', 'Bad Blood', 'Wildest Dreams', 'How You Get The Girl', 'This Love', 'I Know Places', 'Clean', 'Wonderland', 'You Are In Love', 'New Romantics', '"Slut!" [From The Vault]', "Say Don\\'t Go [From The Vault]", "Now That We Don\\'t Talk [From The Vault]", 'Suburban Legends [From The Vault]', 'Is It Over Now? [From The Vault]', 'Sweeter Than Fiction', 'Bad Blood (Remix)'], 'reputation': ['...Ready for It?', 'End Game', 'I Did Something Bad', "Don\\'t Blame Me", 'Delicate', 'Look What You Made Me Do', 'So It Goes...', 'Gorgeous', 'Getaway Car', 'King of My Heart', 'Dancing With Our Hands Tied', 'Dress', "This Is Why We Can\\'t Have Nice Things", 'Call It What You Want', "New Year\\'s Day"], 'Lover': ['I Forgot That You Existed', 'Cruel Summer', 'Lover', 'The Man', 'The Archer', 'I Think He Knows', 'Miss Americana & The Heartbreak Prince', 'Paper Rings', 'Cornelia Street', 'Death By A Thousand Cuts', 'London Boy', "Soon You\\'ll Get Better", 'False God', 'You Need To Calm Down', 'Afterglow', 'ME!', "It\\'s Nice To Have A Friend", 'Daylight', 'All Of The Girls You Loved Before'], 'folklore': ['the 1', 'cardigan', 'the last great american dynasty', 'exile', 'my tears ricochet', 'mirrorball', 'seven', 'august', 'this is me trying', 'illicit affairs', 'invisible string', 'mad woman', 'epiphany', 'betty', 'peace', 'hoax', 'the lakes'], 'evermore': ['willow', 'champagne problems', 'gold rush', "\\'tis the damn season", 'tolerate it', 'no body, no crime', 'happiness', 'dorothea', 'coney island', 'ivy', 'cowboy like me', 'long story short', 'marjorie', 'closure', 'evermore', 'right where you left me', "it\\'s time to go"], 'Midnights': ['Lavender Haze', 'Maroon', 'Anti-Hero', 'Snow On The Beach', "You\\'re On Your Own, Kid", 'Midnight Rain', 'Question...?', 'Vigilante Shit', 'Bejeweled', 'Labyrinth', 'Karma', 'Sweet Nothing', 'Mastermind', 'Hits Different', 'The Great War', 'Bigger Than The Whole Sky', 'High Infidelity', "Would\\'ve, Could\\'ve, Should\\'ve", 'Dear Reader', "You\\'re Losing Me (From The Vault)", 'Karma (Remix)', 'Paris', 'Glitch'], 'The Tortured Poets Department': ['Fortnight', 'The Tortured Poets Department', 'My Boy Only Breaks His Favorite Toys', 'Down Bad', 'So Long, London', 'But Daddy I Love Him', 'Fresh Out The Slammer', 'Florida!!!', 'Guilty as Sin?', "Who\\'s Afraid of Little Old Me?", 'I Can Fix Him (No Really I Can)', 'loml', 'I Can Do It With A Broken Heart', 'The Smallest Man Who Ever Lived', 'The Alchemy', 'Clara Bow', 'The Black Dog', 'imgonnagetyouback', 'The Albatross', 'Chloe or Sam or Sophia or Marcus', 'How Did It End?', 'So High School', 'I Hate It Here', 'thanK you aIMee', "I Look in People\\'s Windows", 'The Prophecy', 'Cassandra', 'Peter', 'The Bolter', 'Robin', 'The Manuscript'], 'The Taylor Swift Holiday Collection': ['Last Christmas', 'Christmases When You Were Mine', 'Santa Baby', 'Silent Night', 'Christmas Must Be Something More', 'White Christmas'], 'The Hunger Games': ['Eyes Open', 'Safe & Sound'], "How Long Do You Think It's Gonna Last": ['Renegade'], 'Cats': ['Beautiful Ghosts', 'Macavity'], 'Where The Crawdads Sing': ['Carolina'], 'Christmas Tree Farm': ['Christmas Tree Farm'], 'Fifty Shades Darker': ["I Don\\'t Wanna Live Forever"], 'Miss Americana': ['Only The Young'], 'Love Drunk': ['Two Is Better Than One'], 'Women in Music Part III': ['Gasoline (Remix)'], 'Two Lanes of Freedom': ["Highway Don\\'t Care"], 'The Hannah Montana Movie': ['Crazier']}
+                this.testKeys = Object.keys(this.test);
+
+                this.songList = [];
+                this.testKeys.forEach(element => {
+                    this.songList.push(...this.test[element])
+                })
+
+                this.listAlbum();
+                document.getElementById("score").innerHTML = `${this.correctCount}/${this.songList.length}`;
+
+                window.addEventListener("scroll", (e)=>{
+                    console.log(window.scrollY);
+                    if(window.scrollY > 100)
+                    {
+                        document.getElementById("score").style.top = 0;
+                    }
+                    else
+                    {
+                        document.getElementById("score").style.top = "80px";
+                    }
+                });
+            }
+
+            autoComp(_str)
+            {
+                this.activeInp.value = _str;
+                this.activeInp.focus();
+                document.getElementById(`${this.activeInp.id}_sug`).innerHTML = "";
+                this.check(_str, this.activeInp.dataset.answer, this.activeInp.id)
+                document.getElementById("score").innerHTML = `${this.correctCount}/${this.songList.length}`;
+            }
+
+            getMostLikely(_str)
+            {
+                var to_ret = [];
+                var _html = "";
+
+                this.songList.forEach(element=>
+                {
+                    if(element.slice(0,_str.length) == _str)
+                    {
+                        var temp = (`
+                        <p onclick="${this.self}.autoComp('${element}');" class="w-full hover:bg-pink-100 hover:text-pink-400 text-white cursor-pointer">${element}</p>
+                        `);
+                        to_ret.push(element);
+                        _html += temp;
+                    }
+                });
+                console.log(to_ret)
+
+                return _html;
+            }
+
+            check(_choice, _answer, _id)
+            {
+                const elem = document.getElementById(_id);
+                this.activeInp = elem;
+
+                if(_choice == _answer)
+                {
+                    elem.style.color = "green";
+                    this.correctCount += 1;
+                }
+                else if(elem.style.color != "red")
+                {
+                    elem.style.color = "red";
+                    this.correctCount -= 1;
+                }
+
+                const _p = document.getElementById(`${_id}_sug`);
+                _p.innerHTML = "";
+                if(_choice.length > 0)
+                {
+                    _p.innerHTML += this.getMostLikely(_choice);
+                }
+            }
+
+            uncheck(_id)
+            {
+                document.getElementById(`${_id}_sug`).innerHTML = "";
+            }
+
+            container(title, songs)
+            {
+                var _songs = "";
+                songs.forEach((element, key) => {
+                    _songs += `
+                    <div class="flex flex-col w-full" id="${title.slice(0,3)}_${key}_parent">
+                        <input type="text" class="w-full text-center flex items-center justify-center bg-white border-1 border-black border text-lg font-medium answer" style="color: red;" id="${title.slice(0,3)}_${key}" data-answer="${element}"/>
+                        <div class="absolute w-[300px] bg-pink-400 text-white shadow-sm flex flex-col gap-2 mt-[40px] z-10"  id="${title.slice(0,3)}_${key}_sug">
+                        </div>
+                    </div>
+                    `;
+                });
+
+                const to_ret = (`
+                <div class="flex flex-col items-center bg-white py-4 px-2 min-w-[300px] text-center">
+                    <p class="bg-pink-400 text-white px-4 py-2 font-medium text-lg w-full">${title}</p>
+                    ${_songs}
+                </div>
+                `);
+                return to_ret;
+            }
+
+            listAlbum()
+            {
+                //var albums = this.test.keys();
+                const _container = this.getChild("container");
+                const _keys = Object.keys(this.test);
+
+                _keys.forEach(element => {
+                    if(this.test[element].length > 2)
+                    {
+                        _container.innerHTML += this.container(element, this.test[element])
+                    }
+                });
+
+                const elems = document.getElementsByClassName("answer");
+                Array.from(elems).forEach((element, key) =>
+                {
+                    element.addEventListener("input", (e) => {
+                        this.check(e.target.value, element.dataset.answer, element.id);
+                        document.getElementById("score").innerHTML = `${this.correctCount}/${this.songList.length}`;
+                    });
+
+                    element.addEventListener("blur", (e) => {
+                        console.log(e.explicitOriginalTarget.tagName)
+                        var tar = e.explicitOriginalTarget;
+                        if(tar.tagName == "INPUT")
+                        {
+                            console.log("UNCHECKING")
+                            this.uncheck(element.id);
+                        }
+                        //this.activeInpEvent = e.explicitOriginalTarget.id;
+                    }, true);
+                });
+            }
+        }
+    </script>
+
+    <div>
+        <div class="fixed z-20 w-full py-2 flex flex-col items-center justify-center bg-pink-400 text-white top-[80px]" id="score">
+        </div>
+        <div child-id="container" class="pt-[80px] flex flex-wrap flex-col md:flex-row gap-4 items-start justify-between px-12">
+        </div>
+    </div>
+</template>
