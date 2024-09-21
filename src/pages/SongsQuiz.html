@@ -36,9 +36,9 @@
             {
                 this.activeInp.value = _str;
                 this.activeInp.focus();
-                this.check(_str, this.activeInp.dataset.answer, this.activeInp.id)
-                document.getElementById("score").innerHTML = `${this.correctCount}/${this.songList.length}`;
                 document.getElementById(`${this.activeInp.id}_sug`).innerHTML = "";
+                this.check(_str, this.activeInp.dataset.answer, this.activeInp.id, false)
+                document.getElementById("score").innerHTML = `${this.correctCount}/${this.songList.length}`;
             }
 
             getMostLikely(_str)
@@ -62,7 +62,7 @@
                 return _html;
             }
 
-            check(_choice, _answer, _id)
+            check(_choice, _answer, _id, guess=true)
             {
                 const elem = document.getElementById(_id);
                 this.activeInp = elem;
@@ -78,11 +78,14 @@
                     this.correctCount -= 1;
                 }
 
-                const _p = document.getElementById(`${_id}_sug`);
-                _p.innerHTML = "";
-                if(_choice.length > 0)
+                if(guess)
                 {
-                    _p.innerHTML += this.getMostLikely(_choice);
+                    const _p = document.getElementById(`${_id}_sug`);
+                    _p.innerHTML = "";
+                    if(_choice.length > 0)
+                    {
+                        _p.innerHTML += this.getMostLikely(_choice);
+                    }
                 }
             }
 
