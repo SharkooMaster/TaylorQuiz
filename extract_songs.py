@@ -12,7 +12,7 @@ lyrics = data_list["Lyrics"]
 ordered_album = {}
 for i in range(len(albums)):
     if(albums[i] not in ordered_album): ordered_album[albums[i]] = []
-    ordered_album[albums[i]].append(titles[i].replace(" (Taylor's Version)", "").replace("'", r"\'"))
+    ordered_album[albums[i]].append(titles[i].replace(" (Taylor's Version)", "").replace("'", ""))
 print(ordered_album)
 
 def toArr(_arr):
