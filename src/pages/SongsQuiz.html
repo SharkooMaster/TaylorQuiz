@@ -100,9 +100,9 @@
                 var _songs = "";
                 songs.forEach((element, key) => {
                     _songs += `
-                    <div class="flex flex-col w-full" id="${title.slice(0,3)}_${key}_parent">
-                        <input type="text" class="w-full text-center flex items-center justify-center bg-white border-1 border-black border text-lg font-medium answer" style="color: red;" id="${title.slice(0,3)}_${key}" data-answer="${element}"/>
-                        <div class="absolute w-[300px] bg-pink-400 text-white shadow-sm flex flex-col gap-2 mt-[40px] z-10"  id="${title.slice(0,3)}_${key}_sug">
+                    <div class="flex flex-col w-full" id="${title.slice(0,3) + title.slice(-1)}_${key}_parent">
+                        <input type="text" class="w-full text-center flex items-center justify-center bg-white border-1 border-black border text-lg font-medium answer" style="color: red;" id="${title.slice(0,3) + title.slice(-1)}_${key}" data-answer="${element}"/>
+                        <div class="absolute w-[300px] bg-pink-400 text-white shadow-sm flex flex-col gap-2 mt-[40px] z-10"  id="${title.slice(0,3) + title.slice(-1)}_${key}_sug">
                         </div>
                     </div>
                     `;
@@ -136,6 +136,7 @@
                 Array.from(elems).forEach((element, key) =>
                 {
                     element.addEventListener("input", (e) => {
+                        console.log(element.id)
                         this.check(e.target.value, element.dataset.answer, element.id);
                         document.getElementById("score").innerHTML = `${this.correctCount}/${this.songList.length}`;
                     });
